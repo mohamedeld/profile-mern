@@ -108,5 +108,11 @@ const profileSchema = new mongoose.Schema({
         default:Date.now
     }
 },{timestamps:true});
-
+profileSchema.pre(/^find/,function(next){
+    this.populate({
+        path:'user',
+        select:'name avatar'
+    });
+    next();
+})
 module.exports = mongoose.model('Profile',profileSchema);

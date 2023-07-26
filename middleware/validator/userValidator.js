@@ -2,6 +2,8 @@ const {query,param,body} = require('express-validator');
 const bcrypt = require('bcrypt');
 const User = require('../../models/userModel');
 
+
+
 module.exports.changePasswordValidator = [
     param("id")
     .notEmpty()

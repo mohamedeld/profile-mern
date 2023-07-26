@@ -13,3 +13,5 @@ router.route('/').get(authController.allowedTo('admin'),checkValidator,userContr
 router.route('/:id/changePassword').put(checkValidator,userController.changePassword);
 
 router.route('/:id').get(authController.allowedTo('admin'),checkValidator,userController.getUser).patch(authController.allowedTo('admin'),checkValidator,userController.updateUser).delete(authController.allowedTo('admin'),checkValidator,userController.deleteUser);
+
+module.exports = router;
