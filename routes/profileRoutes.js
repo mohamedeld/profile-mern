@@ -11,4 +11,7 @@ router.route('/').get(authController.allowedTo('admin'),profileController.getAll
 router.route('/getMe').get(authController.allowedTo('user'),checkValidator,profileController.getProfile);
 router.route('/experience').patch(authController.allowedTo('user'),checkValidator,profileController.updateExperience);
 router.route('/experience/:exp_id').delete(authController.allowedTo('user'),checkValidator,profileController.deleteExperience);
+
+router.route('/education').patch(authController.allowedTo('user'),checkValidator,profileController.updateEducation);
+router.route('/education/:edu_id').delete(authController.allowedTo('user'),checkValidator,profileController.removeEducation);
 module.exports = router;

@@ -70,7 +70,7 @@ exports.updateExperience = catchAsync(async (request,response,next)=>{
    
    profile.experience.unshift(newExp);
    await profile.save();
-   console.log(profile.experience)
+//    console.log(profile.experience)
    response.status(200).json({
     status:'success',
     message:'exdperience updated successfully',
@@ -87,6 +87,43 @@ exports.deleteExperience = catchAsync(async(request,response,next)=>{
     }
     const removeIndex = profile.experience.map((item)=>item.id).indexOf(request.params.exp_id);
     profile.experience.splice(removeIndex,1);
+    await profile.save();
+    response.status(200).json({
+        status:'success',
+        message:'deleted successfully',
+        data:{
+            profile
+        }
+    })
+});
+
+exports.updateEducation = catchAsync(async(request,response,next)=>{
+    const profile = await Profile.findOne({user:request.user.id});
+    if(!profile){
+        return next(new AppError('there is no profile for this user',401));
+    }
+    const {school,degree,fieldOfStudy,from,to,current,description} = request.body;
+    const newEdu = {school,degree,fieldOfStudy,from,to,current,description};
+
+    profile.education.unshift(newEdu);
+    await profile.save();
+    response.status(200).json({
+     status:'success',
+     message:'eduction updated successfully',
+     data:{
+        profile
+     }
+    })
+});
+
+
+exports.removeEducation = catchAsync(async(request,response,next)=>{
+    const profile = await Profile.findOne({user:request.user.id});
+    if(!profile){
+        return next(new AppError('there is no profile for this user',401));
+    }
+    const removeIndex = profile.education.map(item=>item.id).indexOf(request.params.edu_id);
+    profile.education.splice(removeIndex,1);
     await profile.save();
     response.status(200).json({
         status:'success',
