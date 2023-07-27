@@ -14,6 +14,7 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 // limit nums of request
 app.use(express.json({ limit: '20kb' }));
@@ -41,6 +42,7 @@ if(process.env.NODE_ENV === 'development') {
 app.use('/api/auth',authRoutes);
 app.use('/api/users',userRoutes);
 app.use('/api/profile',profileRoutes);
+app.use('/api/post',postRoutes);
 
 app.use((request,response,next)=>{
     response.status(404).json({
